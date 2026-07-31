@@ -13,3 +13,11 @@ class ActivityPoint:
             raise ValueError("elapsed_seconds must be non-negative")
         if self.distance_m < 0:
             raise ValueError("distance_m must be non-negative")
+
+@dataclass(frozen=True)
+class Activity:
+    points: tuple[ActivityPoint, ...]
+
+    def __post_init__(self) -> None:
+        if len(self.points) < 2:
+            raise ValueError("an activity requires at least two points")

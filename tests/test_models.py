@@ -1,6 +1,6 @@
 import pytest
 
-from race_predictor.models import ActivityPoint
+from race_predictor.models import Activity, ActivityPoint
 
 
 def test_activity_point_stores_measurements() -> None:
@@ -40,3 +40,13 @@ def test_activity_point_rejects_negative_distance() -> None:
             distance_m=-1.0,
             elevation_m=181.5,
         )
+
+def test_activity_requires_at_least_two_points() -> None:
+    point = ActivityPoint(
+        elapsed_seconds=0.0,
+        distance_m=0.0,
+        elevation_m=181.5,
+    )
+
+    with pytest.raises(ValueError, match="at least two points"):
+        Activity(points=(point,))
