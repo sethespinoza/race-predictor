@@ -1,3 +1,5 @@
+import pytest
+
 from race_predictor.models import ActivityPoint
 
 
@@ -22,3 +24,19 @@ def test_activity_point_allows_missing_heart_rate() -> None:
     )
 
     assert point.heart_rate_bpm is None
+
+def test_activity_point_rejects_negative_elapsed_time() -> None:
+    with pytest.raises(ValueError, match="elapsed_seconds must be non-negative"):
+        ActivityPoint(
+            elapsed_seconds=-1.0,
+            distance_m=250.0,
+            elevation_m=181.5,
+        )
+
+def test_activity_point_rejects_negative_distance() -> None:
+    with pytest.raises(ValueError, match="distance_m must be non-negative"):
+        ActivityPoint(
+            elapsed_seconds=60.0,
+            distance_m=-1.0,
+            elevation_m=181.5,
+        )
