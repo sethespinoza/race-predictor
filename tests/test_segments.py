@@ -18,6 +18,7 @@ def test_calculate_grade_for_an_uphill_segment() -> None:
 
     assert calculate_grade(start, end) == pytest.approx(0.014)
 
+
 def test_calculate_grade_rejects_zero_distance_segment() -> None:
     start = ActivityPoint(
         elapsed_seconds=0.0,

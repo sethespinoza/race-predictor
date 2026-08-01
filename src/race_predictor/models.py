@@ -14,6 +14,7 @@ class ActivityPoint:
         if self.distance_m < 0:
             raise ValueError("distance_m must be non-negative")
 
+
 @dataclass(frozen=True)
 class Activity:
     points: tuple[ActivityPoint, ...]
