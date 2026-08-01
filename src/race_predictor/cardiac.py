@@ -9,3 +9,12 @@ def calculate_efficiency_factor(
     gap_speed_m_per_s = 1000 / gap_seconds_per_km
 
     return gap_speed_m_per_s / heart_rate_bpm
+
+
+def calculate_cardiac_drift(
+    first_half_efficiency: float,
+    second_half_efficiency: float,
+) -> float:
+    if first_half_efficiency <= 0:
+        raise ValueError("first_half_efficiency must be positive")
+    return (first_half_efficiency - second_half_efficiency) / first_half_efficiency * 100
